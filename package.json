@@ -1,0 +1,33 @@
+{
+  "name": "mobilizer",
+  "version": "0.0.0",
+  "description": "Extract mobile stylesheet from responsive css files",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mcasimir/mobilizer.git"
+  },
+  "keywords": [
+    "css",
+    "mobile",
+    "stylesheet"
+  ],
+  "author": "mcasimir (https://github.com/mcasimir)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mcasimir/mobilizer/issues"
+  },
+  "homepage": "https://github.com/mcasimir/mobilizer",
+  "dependencies": {
+    "css-parse": "^2.0.0",
+    "css-stringify": "^2.0.0",
+    "css-mediaquery": "^0.1.2",
+    "clone": "^0.1.17"
+  },
+  "devDependencies": {
+    "should": "^4.0.4"
+  }
+}

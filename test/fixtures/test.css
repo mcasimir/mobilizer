@@ -1,0 +1,17 @@
+a {
+  color: #000;
+}
+
+a:hover {
+  color: #001;
+}
+
+@media (min-width: 300px) {
+  a {
+    color: #002;
+  }
+
+  a:hover {
+    color: #003;
+  }
+}
