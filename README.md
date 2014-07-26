@@ -74,12 +74,18 @@ Mobilizer exports only a function.
 mobilizer(src, options);
 ```
 
-valid options are:
+- `src` is a _string_ containing css source.
 
-| `targets` | An object mapping targetName:targetOptions |
+- `options` is an object. Valid options are:
 
-where valid targetOptions are:
+| Option    | Description                                |
+| --------- | ------------------------------------------ |
+| `targets` | An object mapping `targetName:targetOptions` |
 
+Valid targetOptions are:
+
+| Option    |  Type  | Description |
+| --------- | ------ | ----------- |
 | `hover` | boolean | wether to include :hover styles or not |
 | `rules` | boolean | wether to include plain rules or not |
 | `screens` | array | a list of screen sizes that target stylesheet will match |
