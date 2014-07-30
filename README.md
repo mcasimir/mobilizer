@@ -18,52 +18,47 @@ npm install mobilizer --save-dev
 var mobilizer = require("mobilizer");
 
 mobilizer(src, {
-  targets: {   
-    mobile: { 
-      
-      // No :hover styles
-      // skip media queries that wont match a screen of 0px:
-      // @media(min-width: 300px) {} won't match
-      // @media(max-width: 300px) {} will match
 
-      hover: 'exclude',
-      screens: [ '0px' ]
-    },
-
-    tablet: { // small screens and a little bigger
-      hover: 'exclude',
-      screens: [ '0px', '700px' ]
-    },
+  mobile: { 
     
+    // No :hover styles
+    // skip media queries that wont match a screen of 0px:
+    // @media(min-width: 300px) {} won't match
+    // @media(max-width: 300px) {} will match
 
-    hover: {
-      // skip rules including :hover styles only,
-      // useful if you decide to re-add :hover using a separate file
-      over: 'only',
+    hover: 'exclude',
+    screens: [ '0px' ]
+  },
 
-      // matches all screens
-      screens: 'any'
-    }
+  tablet: { // small screens and a little bigger
+    hover: 'exclude',
+    screens: [ '0px', '700px' ]
+  },
+  
 
-    desktop: {
-      // includes any rule, including :hover styles
-      // but excludes anything outside media queries
-      media: 'only',
+  hover: {
+    // skip rules including :hover styles only,
+    // useful if you decide to re-add :hover using a separate file
+    over: 'only',
 
-      // matches bigger screens only
-      screens: [ '1024px' ]
-    }
-
-    noMediaQueries: {
-      // matches anything but media queries
-      media: 'exclude'
-    }
-
-    noMediaQueriesNoHover: {
-      // matches only media queries
-      media: 'only'
-    }
+    // matches all screens
+    screens: 'any'
   }
+
+  desktop: {
+    // includes any rule, including :hover styles
+    // but excludes anything outside media queries
+    media: 'only',
+
+    // matches bigger screen media queries only
+    screens: [ '1024px' ]
+  }
+
+  noMediaQueries: {
+    // matches anything but media queries
+    media: 'exclude'
+  }
+
 });
 ```
 
@@ -80,11 +75,47 @@ This would return an object like this:
 
 ### A note about safety
 
-Mobilizer retains order of rules as they are declared in input sources. It is generally safe to apply it to mobile first stylesheets, rules overriding should be preserved across media queries.
+Mobilizer retains order of rules as they are declared in input sources so it is generally safe to apply it. 
+
+Just be careful when you try to recombine mobilizer stylesheets together. I.e.
+
+```js
+mobilizer(bootstrap_css, {
+  'mobile.css': {
+    media: 'exclude',
+    hover: 'exclude'
+  },
+  'responsive.css': {
+    media: 'only',
+    hover: 'exclude'  
+  },
+  'hover.css': {
+    hover: 'only'
+  }
+});
+```
+
+``` html
+<!-- Correct -->
+<head>
+  <link href='hover.css'></link>
+  <link href='mobile.css'></link>
+  <link href='responsive.css'></link>
+</head>
+```
+
+``` html
+<!-- Wrong -->
+<head>
+  <link href='hover.css'></link>
+  <link href='responsive.css'></link>
+  <link href='mobile.css'></link>
+</head>
+```
 
 ### Api
 
-Mobilizer exports only a function.
+Mobilizer module exports only a function.
 
 ```
 mobilizer(src, targets);
@@ -92,13 +123,13 @@ mobilizer(src, targets);
 
 - `src` is a _string_ containing css source.
 
-- `targets` is an object. Valid options are:
+- `targets` is an _object_ mapping target names with target options. Valid target options are:
 
 | Option    |  Type  | Description |
 | --------- | ------ | ----------- |
-| `hover`   | string  | `include`/`only`/`exclude`, default = 'include'          |
-| `media`   | string  | `include`/`only`/`exclude`, default = 'include'          |
-| `screens` | array   | a list of screen sizes that target stylesheet will match |
+| `hover`   | string  | `include`/`only`/`exclude`, default = `'include'`         |
+| `media`   | string  | `include`/`only`/`exclude`, default = `'include'`          |
+| `screens` | array or string  | a list of screen sizes that target stylesheet will match, default = `['any']` |
 
 ---
 
