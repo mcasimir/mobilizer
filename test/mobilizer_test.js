@@ -1,15 +1,26 @@
 var should = require('should'),
     fs = require('fs'),
     path = require('path'),
-    mobilizer = require('..'),
-    src = fs.readFileSync(path.resolve(__dirname, 'fixtures/test.css'), {encoding: 'utf8'});
+    mobilizer = require('..');
 
-// a { color: #000; }
-// a:hover { color: #001; }
-// @media (min-width: 300px) {
-//   a { color: #002; }
-//   a:hover { color: #003; }
-// }
+var src = [
+  'a {',
+  '  color: #000;',
+  '}',
+  '',
+  'a:hover {',
+  '  color: #001;',
+  '}',
+  '',
+  '@media (min-width: 300px) {',
+  '  a {',
+  '    color: #002;',
+  '  }',
+  '  a:hover {',
+  '    color: #003;',
+  '  }',
+  '}'
+].join('\n');
 
 describe('mobilizer', function(){
   it('Should work', function(){
