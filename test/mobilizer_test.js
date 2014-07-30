@@ -14,7 +14,7 @@ var should = require('should'),
 describe('mobilizer', function(){
   it('Should work', function(){
     res = mobilizer(src, {
-      targets: {   
+
         mobile: {
           hover: 'exclude',
           screens: [ '0px' ]
@@ -34,7 +34,7 @@ describe('mobilizer', function(){
           hover: 'only',
           screens: 'any'
         }
-      }
+      
     });
 
     res.mobile.should.equal(
