@@ -87,24 +87,18 @@ Mobilizer retains order of rules as they are declared in input sources. It is ge
 Mobilizer exports only a function.
 
 ```
-mobilizer(src, options);
+mobilizer(src, targets);
 ```
 
 - `src` is a _string_ containing css source.
 
-- `options` is an object. Valid options are:
-
-| Option    | Description                                |
-| --------- | ------------------------------------------ |
-| `targets` | An object mapping `targetName:targetOptions` |
-
-Valid targetOptions are:
+- `targets` is an object. Valid options are:
 
 | Option    |  Type  | Description |
 | --------- | ------ | ----------- |
-| `hover` | boolean | wether to include :hover styles or not |
-| `rules` | boolean | wether to include plain rules or not |
-| `screens` | array | a list of screen sizes that target stylesheet will match |
+| `hover`   | string  | `include`/`only`/`exclude`, default = 'include'          |
+| `media`   | string  | `include`/`only`/`exclude`, default = 'include'          |
+| `screens` | array   | a list of screen sizes that target stylesheet will match |
 
 ---
 
