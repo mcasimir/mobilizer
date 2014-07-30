@@ -26,12 +26,12 @@ mobilizer(src, {
       // @media(min-width: 300px) {} won't match
       // @media(max-width: 300px) {} will match
 
-      hover: false,
+      hover: 'exclude',
       screens: [ '0px' ]
     },
 
     tablet: { // small screens and a little bigger
-      hover: false,
+      hover: 'exclude',
       screens: [ '0px', '700px' ]
     },
     
@@ -39,7 +39,7 @@ mobilizer(src, {
     hover: {
       // skip rules including :hover styles only,
       // useful if you decide to re-add :hover using a separate file
-      rules: false,
+      over: 'only',
 
       // matches all screens
       screens: 'any'
@@ -47,9 +47,21 @@ mobilizer(src, {
 
     desktop: {
       // includes any rule, including :hover styles
+      // but excludes anything outside media queries
+      media: 'only',
 
       // matches bigger screens only
       screens: [ '1024px' ]
+    }
+
+    noMediaQueries: {
+      // matches anything but media queries
+      media: 'exclude'
+    }
+
+    noMediaQueriesNoHover: {
+      // matches only media queries
+      media: 'only'
     }
   }
 });
@@ -65,6 +77,10 @@ This would return an object like this:
   desktop: '...stylesheet content...'
 }
 ```
+
+### A note about safety
+
+Mobilizer retains order of rules as they are declared in input sources. It is generally safe to apply it to mobile first stylesheets, rules overriding should be preserved across media queries.
 
 ### Api
 
