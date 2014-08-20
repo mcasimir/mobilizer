@@ -39,7 +39,7 @@ mobilizer(src, {
   hover: {
     // skip rules including :hover styles only,
     // useful if you decide to re-add :hover using a separate file
-    over: 'only',
+    hover: 'only',
 
     // matches all screens
     screens: 'any'

@@ -4,6 +4,7 @@ var should = require('should'),
     mobilizer = require('..');
 
 var src = [
+  '@font-face {\n\n}\n',
   'a {',
   '  color: #000;',
   '}',
@@ -23,41 +24,45 @@ var src = [
 ].join('\n');
 
 describe('mobilizer', function(){
-  it('Should work', function(){
-    res = mobilizer(src, {
+  res = mobilizer(src, {
 
-        mobile: {
-          hover: 'exclude',
-          screens: [ '0px' ]
-        },
+      mobile: {
+        hover: 'exclude',
+        screens: [ '0px' ]
+      },
 
-        tablet: {
-          hover: 'exclude',
-          screens: [ '301px' ]
-        },
+      tablet: {
+        hover: 'exclude',
+        screens: [ '301px' ]
+      },
 
-        responsive: {
-          media: 'only',
-          screens: [ '301px' ]
-        },
+      responsive: {
+        media: 'only',
+        screens: [ '301px' ]
+      },
 
-        hover: {
-          hover: 'only',
-          screens: 'any'
-        }
-      
-    });
+      hover: {
+        hover: 'only',
+        screens: 'any'
+      }
+    
+  });
 
+  it('Should exclude hover', function(){
     res.mobile.should.equal(
       [
+      '@font-face {\n\n}\n',
       'a {',
       '  color: #000;',
       '}'
       ].join('\n')
     );
-    
+  });
+
+  it('Should exclude hover matching media queries', function(){
     res.tablet.should.equal(
-      [
+      [ 
+        '@font-face {\n\n}\n',
         'a {',
         '  color: #000;',
         '}',
@@ -69,7 +74,9 @@ describe('mobilizer', function(){
         '}'
       ].join('\n')
     );
-
+  });
+  
+  it('Should exclude style outside media queries with media:"only"', function(){
     res.responsive.should.equal(
       [
         '@media (min-width: 300px) {',
@@ -83,7 +90,9 @@ describe('mobilizer', function(){
         '}'
       ].join('\n')
     );
+  });
 
+  it('Should exclude anything about hover with hover:"only"', function(){
     res.hover.should.equal(
       [
         'a:hover {',
@@ -98,4 +107,5 @@ describe('mobilizer', function(){
       ].join('\n')
     );
   });
+
 });
